@@ -1,0 +1,72 @@
+.order-now {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.remove-btn {
+    border: none;
+    color: #fff;
+    padding: 7px 15px;
+    border-radius: 10px;
+}
+
+.add-btn {
+    border: none;
+    color: #fff;
+    padding: 7px 20px;
+    border-radius: 10px;
+}
+
+.placeAnOrder-btn {
+    color: white;
+    margin-top: 50px;
+    padding: 10px 50px;
+    border-radius: 10px;
+} 
+
+.final-order-table{
+    height: 90%;
+    width: 100%;
+    background-color: #fff;
+}
+
+.med-photo{
+    height: 200px;
+    width: auto;
+}
+
+.alert-wrapper {
+    top: 0;
+    left: 0;
+    z-index:999;
+    background: #f8f9fa!important;
+    height: 75px;
+    width: 100%;
+    overflow:hidden;
+}
+
+.order-overlay-option{
+    position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 998; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.order-popup-option{
+    height: 200px;
+    width: 300px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.order-options{
+    width: 200px;
+}

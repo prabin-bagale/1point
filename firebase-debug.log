@@ -1,0 +1,55 @@
+[debug] [2021-03-12T09:38:39.539Z] ----------------------------------------------------------------------
+[debug] [2021-03-12T09:38:39.542Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-03-12T09:38:39.543Z] CLI Version:   9.6.1
+[debug] [2021-03-12T09:38:39.543Z] Platform:      win32
+[debug] [2021-03-12T09:38:39.543Z] Node Version:  v14.15.3
+[debug] [2021-03-12T09:38:39.544Z] Time:          Fri Mar 12 2021 15:23:39 GMT+0545 (Nepal Time)
+[debug] [2021-03-12T09:38:39.545Z] ----------------------------------------------------------------------
+[debug] [2021-03-12T09:38:39.545Z] 
+[debug] [2021-03-12T09:38:39.548Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-03-12T09:38:39.576Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-03-12T09:38:39.577Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\react\1point
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+  * You are initializing in an existing Firebase project directory
+
+[debug] [2021-03-12T09:38:40.581Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-03-12T09:38:40.582Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using onepoint-website. 
+[debug] [2021-03-12T09:39:00.556Z] > refreshing access token with scopes: []
+[debug] [2021-03-12T09:39:00.557Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-03-12T09:39:01.464Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Fri, 12 Mar 2021 09:39:02 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-03-12T09:39:01.471Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/onepoint-website [none]
+[debug] [2021-03-12T09:39:01.993Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/onepoint-website 403
+[debug] [2021-03-12T09:39:01.993Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/onepoint-website {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2021-03-12T09:39:01.994Z] HTTP Error: 403, The caller does not have permission
+[debug] [2021-03-12T09:39:03.238Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+    at module.exports (C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Client.doRequest (C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:238:23)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at async Client.request (C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:96:20)
+    at async Object.getFirebaseProject (C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:289:21)
+    at async Object.doSetup [as project] (C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:77:27)
+    at async init (C:\Users\Dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:19:9)
+[error] 
+[error] Error: Failed to get Firebase project onepoint-website. Please make sure the project exists and your account has permission to access it.
