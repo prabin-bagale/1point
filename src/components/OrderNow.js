@@ -4,24 +4,22 @@ import { useState } from "react";
 import { Row, Col, Button, Card, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../AuthContext";
-import app from "../firebase";
-import firebase from "firebase";
-import { useHistory } from "react-router-dom";
+import { db, storage, serverTimestamp } from "../firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { ref as storageRef, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 import FileUploader from "react-firebase-file-uploader";
 import { AiFillDelete } from "react-icons/ai";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import 'react-html5-camera-photo/build/css/index.css';
 import Camera from 'react-html5-camera-photo';
-import { Table } from "@material-ui/core";
 
 
-firebase.firestore().settings({
-  ignoreUndefinedProperties: true,
-})
+// Not needed in modular SDK, Firestore ignores undefined by default
 
 function OrderNow() {
   const { currentUser } = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [orderList, setOrderList] = useState([
     { productName: "", strength: "", quantity: "", imageURL: "" },
   ]);
@@ -74,7 +72,7 @@ function OrderNow() {
     ]);
   };
 
-  const ref = app.firestore().collection("orders");
+  const ref = collection(db, "orders");
 
   function addOrder(newOrder) {
     
@@ -103,12 +101,8 @@ function OrderNow() {
      setOrderImage(filename);
      setProgress("Uploaded");
      setIsUploading(false);
-     app
-       .storage()
-       .ref("ordersImage")
-       .child(filename)
-       .getDownloadURL()
-       .then((url) => setOrderImageURL([...orderImageURL,url]));
+     const imageRef = storageRef(storage, `ordersImage/${filename}`);
+     getDownloadURL(imageRef).then((url) => setOrderImageURL([...orderImageURL, url]));
        
    };
 
@@ -122,22 +116,20 @@ function OrderNow() {
 
    const confirmTrue=(newOrder)=>{
       setDisplayConfirmAlert('d-none')
-           ref
-           .doc(newOrder.id)
-           .set({
+           setDoc(doc(ref, newOrder.id), {
              ...newOrder,
              orderedBy: currentUser.uid,
-             email : currentUser.email,
-             orderedAt: firebase.firestore.FieldValue.serverTimestamp(),
+             email: currentUser.email,
+             orderedAt: serverTimestamp(),
              status: 'Requested Order'
            })
-           .then(() => {
-             window.alert("Order Sucessfully Placed");
-             history.push("/history");
-           })
-           .catch((err) => {
-             console.error(err);
-           });
+             .then(() => {
+               window.alert("Order Sucessfully Placed");
+               navigate("/history");
+             })
+             .catch((err) => {
+               console.error(err);
+             });
    }
 
    const orderDetailHandler=()=>{
@@ -224,7 +216,7 @@ function OrderNow() {
                         accept="image/*"
                         name="ordersImage"
                         randomizeFilename
-                        storageRef={app.storage().ref("ordersImage")}
+                        storageRef={storageRef(storage, "ordersImage")}
                         onUploadStart={handleUploadStart}
                         onUploadError={handleUploadError}
                         onUploadSuccess={handleUploadSuccess}

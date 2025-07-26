@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import SignInNav from "./SignInNav";
 import { useAuth } from "../AuthContext";
 import { Container, Card, Button, Alert, Modal } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import {db} from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { db } from "../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 
 export default function Profile() {
@@ -11,7 +12,7 @@ export default function Profile() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
   const [profileData,setProfileData] = useState({})
@@ -33,29 +34,22 @@ export default function Profile() {
     setLoading(false);
   }
 
-  // async function handleLogout() {
-  //   setError("");
-  //   try {
-  //     await logout();
-  //     history.push("/");
-  //     // window.alert("Logged Out.");
-  //   } catch {
-  //     setError("Failed to log out");
-  //     window.alert(error);
-  //   }
-  // }
 
-  useEffect(()=>{
-    db.collection('users').where("email","==",currentUser.email).get().then(snapshot=>{
-      let data = []
-      snapshot.forEach(doc=>{
-        const userData = doc.data()
-        data.push(userData)
-        setProfileData(userData)
-        console.log(userData)
-      })
-    }).catch(error=> console.log(error))
-  },[])
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const q = query(collection(db, 'users'), where('email', '==', currentUser.email));
+        const snapshot = await getDocs(q);
+        snapshot.forEach(doc => {
+          const userData = doc.data();
+          setProfileData(userData);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProfile();
+  }, [currentUser]);
 
   return (
     <div className="Profile">

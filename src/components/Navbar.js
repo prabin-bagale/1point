@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Logo from "../img/faicon.png";
-import { withRouter, Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
 const Navbar = () => {
 
   const [error, setError] = useState("");
   const { logout } = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
     setError("");
     try {
       await logout();
-      history.push("/");
+      navigate("/");
       window.alert("Logged Out.");
     } catch {
       setError("Failed to log out");
@@ -77,4 +77,4 @@ const Navbar = () => {
   );
 };
 
-export default withRouter(Navbar);
+export default Navbar;

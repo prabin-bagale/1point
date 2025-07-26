@@ -2,7 +2,7 @@ import Logo from "../img/faicon.png";
 import { Link } from "react-router-dom";
 import { Container, Card, Button, Alert, Modal } from "react-bootstrap";
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
 
@@ -14,7 +14,7 @@ const SignInNav = () => {
   const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleClose = () => setShow(false);
 
 
@@ -23,7 +23,7 @@ const SignInNav = () => {
     setError("");
     try {
       await logout();
-      history.push("/");
+      navigate("/");
       // window.alert("Logged Out.");
     } catch {
       setError("Failed to log out");

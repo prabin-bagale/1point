@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { Form, Card, Container, Alert } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignInNav from "./SignInNav";
 import { useAuth } from "../AuthContext";
 import { v4 as uuidv4 } from "uuid";
-import app from "../firebase";
-import firebase from "firebase";
+import { app, db, serverTimestamp } from "../firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const [pharmacyName, setPharmacyName] = useState("");
@@ -19,9 +19,10 @@ const SignUp = () => {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const ref = app.firestore().collection("users");
+  // Modular Firestore usage
+  const ref = collection(db, "users");
 
   function addUser(newUser) {
     if(pharmacyName==="" || ddaRegNo==="" || panNo===""|| ownerName===""|| contact===""|| email===""){
@@ -32,19 +33,17 @@ const SignUp = () => {
       alert('Contact number should be 10 ch')        
     }
     else{ 
-      ref
-      .doc(newUser.id)
-      .set({
+      setDoc(doc(ref, newUser.id), {
         ...newUser,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: serverTimestamp(),
       })
-      .then(() => {
-        window.alert("Account Registered Successfully");
-        history.push("/signIn")
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        .then(() => {
+          window.alert("Account Registered Successfully");
+          navigate("/signIn");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
       
     }
   }
@@ -56,7 +55,7 @@ const SignUp = () => {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, contactRef.current.value);
-      history.push("/signIn");
+      navigate("/signIn");
     } catch {
       setError("Failed to create an account");
     }

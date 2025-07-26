@@ -1,5 +1,5 @@
 import { Form, Card, Container, Alert } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignInNav from "./SignInNav";
 import { useRef, useState } from "react";
 import { useAuth } from "../AuthContext";
@@ -10,7 +10,7 @@ const SignIn = () => {
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [sucess] = useState('Sucess')
 
   async function handleSubmit(e) {
@@ -20,7 +20,7 @@ const SignIn = () => {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/", sucess);
+      navigate("/", { state: sucess });
 
 
     } catch {
