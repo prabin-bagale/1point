@@ -14,7 +14,6 @@ import { useAuth } from "./AuthContext";
 // // import NavigationBar from './components/NavigationBar';
 
 const MainLayout = (props) => {
-  const [log,setLog]=useState(props?.location?.state)
   const { currentUser } = useAuth();
 
   useEffect(() => {

@@ -24,7 +24,7 @@ const About = () => {
                   </div>
                 </div>
                 <h2 className="title">
-                  <a href="#">Our Mission</a>
+                  <a href="/">Our Mission</a>
                 </h2>
                 <p>
                   To provide safe, high quality medicine within few hours of
@@ -41,7 +41,7 @@ const About = () => {
                   </div>
                 </div>
                 <h2 className="title">
-                  <a href="#">Our Vision</a>
+                  <a href="/">Our Vision</a>
                 </h2>
                 <p>
                   To establish a service that you can access from anywhere and
@@ -58,7 +58,7 @@ const About = () => {
                   </div>
                 </div>
                 <h2 className="title">
-                  <a href="#">Our Approach</a>
+                  <a href="/">Our Approach</a>
                 </h2>
                 <p>
                   Our unique approach combines new technology along with our
