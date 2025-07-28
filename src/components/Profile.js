@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SignInNav from "./SignInNav";
 import { useAuth } from "../AuthContext";
-import { Container, Card, Button, Alert, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Container, Card, Button, Alert } from "react-bootstrap";
 import { db } from "../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
@@ -12,12 +11,8 @@ export default function Profile() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  const [show, setShow] = useState(false);
   const [profileData,setProfileData] = useState({})
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   async function handleResetPassword(e) {
     e.preventDefault();

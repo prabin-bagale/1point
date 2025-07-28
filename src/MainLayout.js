@@ -10,8 +10,6 @@ import Navbarlog from './components/Navbar/NavbarLog'
 import Navbar from './components/Navbar/Navbar'
 import { useAuth } from "./AuthContext";
 
-// import { useState } from 'react';
-// // import NavigationBar from './components/NavigationBar';
 
 const MainLayout = (props) => {
   const { currentUser } = useAuth();
@@ -24,10 +22,8 @@ const MainLayout = (props) => {
   
   return (
     <div className="MainLayout">
-      {/* <Navbar /> */}
-      {/* <NavigationBar /> */}
       
-      {(currentUser === null)?<Navbarlog/>  : <Navbar/>}
+      {(currentUser === null) ? <Navbarlog/>  : <Navbar/>}
       <Intro />
       <main id="main">
         <About />
